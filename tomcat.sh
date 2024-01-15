@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Establecer permisos de ejecución para el script
+if [ ! -x "$0" ]; then
+    echo "Dando permisos de ejecución al script..."
+    chmod +x "$0"
+    echo "Permisos de ejecución concedidos."
+fi
+
 # Actualizamos la máquina
 sudo apt-get update
 sudo apt-get upgrade -y
