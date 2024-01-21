@@ -4,7 +4,7 @@
 stack_name="TestStack"
 
 # Nombre del archivo de plantilla YAML
-template_file="main.yaml"
+template_file="main.yml"
 
 # Comando para desplegar el stack
 aws cloudformation create-stack \
