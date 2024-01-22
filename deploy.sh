@@ -11,8 +11,8 @@ stack_name="TestDeployStack"
 template_file="main.yml"
 
 # Comando para desplegar el stack
-aws cloudformation create-stack \
+aws cloudformation deploy \
   --stack-name $stack_name \
-  --template-body file://$template_file \
-  --capabilities CAPABILITY_IAM \
+  --template-file $template_file \
+  --capabilities CAPABILITY_NAMED_IAM \
   --region us-east-1
