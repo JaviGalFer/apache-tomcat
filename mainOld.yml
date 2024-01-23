@@ -1,13 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Plantilla para crear grupo de seguridad e instancia EC2'
-Parameters:
-  InstanceType:
-    Type: String
-    Default: t2.micro
-  EC20S:
-    Type: AWS::SSM::Parameter::Value<AWS::Image::Id>
-    Default: /aws/service/canonical/ubuntu/server/20.04/stable/current/amd64/hvm/ebs-gp2/ami-id
-
 Resources:
   ApplicationServerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -27,20 +19,11 @@ Resources:
   AwsPruebaServerInstance:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: !Ref InstanceType
-      ImageId: !Ref EC20S
+      InstanceType: t2.micro  
+      ImageId: ami-06aa3f7caf3a30282 
       SecurityGroupIds:
         - !Ref ApplicationServerSecurityGroup
       KeyName: vockey
-      UserData:
-        Fn::Base64: |
-          #!/bin/bash -xe
-          apt update -y
-          apt upgrade -y
-          cd ~
-          mkdir deployment
-
-
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
