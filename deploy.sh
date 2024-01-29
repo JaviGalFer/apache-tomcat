@@ -21,7 +21,7 @@ ec2_instance_type="t2.micro"
 # Comando para desplegar el stack
 aws cloudformation deploy \
   --stack-name $stack_name \
-  --template-file $temp late_file \
+  --template-file $template_file \
   --capabilities CAPABILITY_NAMED_IAM \
   --region us-east-1 \
   --parameter-override EC2InstanceType=$ec2_instance_type
