@@ -13,7 +13,7 @@ export AWS_DEFAULT_REGION=us-east-1
 stack_name=TestDeployStack
 
 # Nombre del archivo de plantilla YAML
-template_file=main.yml
+template_file=ubuntu.yml
 
 # Tipo de instancia
 ec2_instance_type=t2.micro
