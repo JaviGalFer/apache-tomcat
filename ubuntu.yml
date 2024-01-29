@@ -173,16 +173,16 @@ Resources:
           ln -s /root/aws-cfn-bootstrap-latest/init/ubuntu/cfn-hup /etc/init.d/cfn-hup
           /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource EC2Instance --configsets full_install --region ${AWS::Region}
           sleep 1
-          apt-get update
-          apt-get upgrade -y
 
+          # machine update
+          apt update -y && apt upgrade -y && apt auto-remove -y
 
-          # Step 1: Install Tomcat
+          # user creation
           useradd -m -d /opt/tomcat -U -s /bin/false tomcat
-          apt-get install openjdk-17-jdk -y
-          apt-get install gradle -y
-          apt install default-jdk -y
 
+          # java installation
+          apt install openjdk-17-jdk -y
+          apt install default-jdk -y
 
           # tomcat file download to /tmp
           wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.18/bin/apache-tomcat-10.1.18.tar.gz -P /tmp
@@ -196,7 +196,7 @@ Resources:
           # give execute permissions to the tomcat binaries
           chmod -R u+x /opt/tomcat/bin
 
-          # Step 2 V2: Configure Admin Users
+          # add users to tomcat-users.xml
           sed -i '/<\/tomcat-users>/i \
             <role rolename="manager-gui" /> \
             <user username="manager" password="1234" roles="manager-gui" /> \
@@ -210,16 +210,15 @@ Resources:
           # comment remoteaddrvalve in host-manager file
           sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1""/ s/^/<!--/;s/$/-->/' /opt/tomcat/webapps/host-manager/META-INF/context.xml
 
-
-          # Step 3: Create systemd service
-
-          tee /etc/systemd/system/tomcat.service <<EOF
+          # configure tomcat.service
+          tee /etc/systemd/system/tomcat.service > /dev/null <<EOL
           [Unit]
           Description=Tomcat
           After=network.target
 
           [Service]
           Type=forking
+
           User=tomcat
           Group=tomcat
 
@@ -238,23 +237,20 @@ Resources:
 
           [Install]
           WantedBy=multi-user.target
-          EOF
+          EOL
 
-          # reiniciamos daemon
-
+          # reload systemd to pick up the new unit file
           systemctl daemon-reload
 
-          # iniciamos tomcat
+          # start tomcat
           systemctl start tomcat
 
-          # Habilitamos tomcat
+          # enable tomcat to start on system boot
           systemctl enable tomcat
 
-          # Step 4: Allow traffic to port 8080
+          # allow incoming traffic on port 8080
           ufw allow 8080
 
-          echo "Tomcat installation and configuration completed!"
-          echo "You can access Tomcat at: http://your_server_ip:8080"
           # Esta tiene que serla ultima instrucción
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource EC2Instance --region ${AWS::Region}
       Tags:

@@ -10,18 +10,19 @@ export AWS_SESSION_TOKEN=
 export AWS_DEFAULT_REGION=us-east-1
 
 # Nombre del stack
-stack_name="TestDeployStack"
+stack_name=TestDeployStack
 
 # Nombre del archivo de plantilla YAML
-template_file="main.yml"
+template_file=main.yml
 
 # Tipo de instancia
-ec2_instance_type="t2.micro"
+ec2_instance_type=t2.micro
 
 # Comando para desplegar el stack
 aws cloudformation deploy \
   --stack-name $stack_name \
   --template-file $template_file \
   --capabilities CAPABILITY_NAMED_IAM \
+  --no-fail-on-empty-changeset \
   --region us-east-1 \
-  --parameter-override EC2InstanceType=$ec2_instance_type
+  --parameter-override InstanceType=$ec2_instance_type
