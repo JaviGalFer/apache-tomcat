@@ -18,7 +18,7 @@ template_file=ubuntu.yml
 # Tipo de instancia
 ec2_instance_type=t2.micro
 
-# Comando para desplegar el stack
+# Comando para desplegar el stack con sus variables
 aws cloudformation deploy \
   --stack-name $stack_name \
   --template-file $template_file \

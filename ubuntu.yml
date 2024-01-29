@@ -196,7 +196,7 @@ Resources:
           # give execute permissions to the tomcat binaries
           chmod -R u+x /opt/tomcat/bin
 
-          # Step 2 V2: Configure Admin Users
+          # Step 2: Configure Admin Users
           sed -i '/<\/tomcat-users>/i \
             <role rolename="manager-gui" /> \
             <user username="manager" password="1234" roles="manager-gui" /> \
@@ -240,11 +240,11 @@ Resources:
           WantedBy=multi-user.target
           EOF
 
-          # reiniciamos daemon
+          # Reiniciamos daemon
 
           systemctl daemon-reload
 
-          # iniciamos tomcat
+          # Iniciamos tomcat
           systemctl start tomcat
 
           # Habilitamos tomcat
