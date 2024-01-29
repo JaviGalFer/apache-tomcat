@@ -77,6 +77,10 @@ Parameters:
     Default: 0.0.0.0/0
     AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
     ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  JAVA_HOME_PATH:
+    Description: Ruta del directorio de instalación de Java (JAVA_HOME)
+    Type: String
+    Default: '/usr/lib/jvm/java-17-openjdk-amd64'
 Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
