@@ -260,6 +260,7 @@ Resources:
           cd /tmp
           git clone https://github.com/DavidHormigoRamirez/springholamundo
           cd springholamundo
+          # Apagamos el tomcat
           systemctl stop tomcat
           # Hacer ejecutable gradlew
           chmod +x gradlew
@@ -273,6 +274,7 @@ Resources:
           # Crear directorio para desplegar la aplicación (opcional)
           mkdir /opt/tomcat/webapps/Santi
           unzip /opt/tomcat/webapps/Santi.war -d /opt/tomcat/webapps/Santi
+          # Volvemos a iniciar Tomcat
           systemctl start tomcat
           # Añadir salida que devuelve la ruta a la aplicación instalada
           echo "La aplicación Java ha sido instalada en: /opt/tomcat/webapps/Santi"
