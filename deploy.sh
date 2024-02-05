@@ -26,3 +26,8 @@ aws cloudformation deploy \
   --no-fail-on-empty-changeset \
   --region us-east-1 \
   --parameter-override InstanceType=$ec2_instance_type
+if [ $? -eq 0 ]; then
+aws cloudformation list-exports \
+--profile awsbootstrap \
+--query "Exports[?Name=='InstanceEndpoint'].Value"
+fi
