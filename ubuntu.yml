@@ -265,10 +265,10 @@ Resources:
           chmod +x gradlew
 
           # Compilar la aplicación Java
-          ./gradlew war
+          bash gradlew war
 
           # Mover el archivo WAR resultante a la carpeta de aplicaciones de Tomcat
-          mv build/libs/*.war /opt/tomcat/webapps/Santi.war
+          mv build/libs/holamundo-0.0.1-SNAPSHOT-plain.war /opt/tomcat/webapps/holamundo-0.0.1-SNAPSHOT-plain.war
 
           # Crear directorio para desplegar la aplicación (opcional)
           mkdir /opt/tomcat/webapps/Santi
