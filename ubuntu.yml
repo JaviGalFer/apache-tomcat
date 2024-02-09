@@ -255,30 +255,7 @@ Resources:
 
           echo "Tomcat installation and configuration completed!"
           echo "You can access Tomcat at: http://your_server_ip:8080"
-          #-->DESPLIEGUE
-          # Clonar el repositorio de GitHub
-          cd /tmp
-          git clone https://github.com/DavidHormigoRamirez/springholamundo
-          cd springholamundo
-          # Apagamos Tomcat
-          systemctl stop tomcat
-          # Hacer ejecutable gradlew
-          chmod +x gradlew
-
-          # Compilar la aplicación Java
-          bash gradlew war
-
-          # Mover el archivo WAR resultante a la carpeta de aplicaciones de Tomcat
-          mv build/libs/holamundo-0.0.1-SNAPSHOT-plain.war /opt/tomcat/webapps/Santi.war
-
-          # Crear directorio para desplegar la aplicación (opcional)
-          mkdir /opt/tomcat/webapps/Santi
-          unzip /opt/tomcat/webapps/Santi.war -d /opt/tomcat/webapps/Santi
-          # Volvemos a iniciar Tomcat
-          systemctl start tomcat
-          # Añadir salida que devuelve la ruta a la aplicación instalada
-          echo "La aplicación Java ha sido instalada en: /opt/tomcat/webapps/Santi"
-
+          
           # Esta tiene que serla ultima instrucción
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource EC2Instance --region ${AWS::Region}
       Tags:
